@@ -26,24 +26,33 @@ end
 
 class Bot
   subscribers = []
-  doc = Nokogiri::HTML(open("http://tapastic.com/swallowsofdoom/subscribers?series_id=1237"))
+  doc = Nokogiri::HTML(open("http://tapastic.com/swallowsofdoom/subscribers?pageNumber=1&series_id=1237"))
 
   end_page_node = doc.css('div.g-pagination-wrap/a.mln')
+  end_page = end_page_node.text
   subscriber_nodes = doc.css('li.ib/a.thumb-wrap')
 
-  subscriber_nodes.each do |subscriber_node|
-    subscriber_name = subscriber_node['href']
-    subscriber_url = BASE_SUBSCRIBER_URL + subscriber_name
-    subscribers << Subscriber.new(name: subscriber_name, url: subscriber_url)
+  i = 1
+  while i <= end_page
+    # doc = Nokogiri::HTML(open("http://tapastic.com/swallowsofdoom/subscribers?pageNumber=10&series_id=1237"))
+    subscriber_nodes.each do |subscriber_node|
+      subscriber_name = subscriber_node['href']
+      subscriber_url = BASE_SUBSCRIBER_URL + subscriber_name
+      subscribers << Subscriber.new(name: subscriber_name, url: subscriber_url)
+    end
+
+    sleep 0.5
+    i +=1
   end
+
+  a = page.at('a[title="Next page"]')
+  page = Nokogiri::HTML(open(a[:href]))
 
   end_page = end_page_node.text
 
-  puts end_page
-
-  # subscribers.each do |subscriber|
-  #   puts subscriber.name
-  # end
+  subscribers.each do |subscriber|
+    puts subscriber.name
+  end
 end
 
   # categories.each do |c|
