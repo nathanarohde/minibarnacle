@@ -28,17 +28,22 @@ class Bot
   subscribers = []
   doc = Nokogiri::HTML(open("http://tapastic.com/swallowsofdoom/subscribers?series_id=1237"))
 
+  end_page_node = doc.css('div.g-pagination-wrap/a.mln')
   subscriber_nodes = doc.css('li.ib/a.thumb-wrap')
 
   subscriber_nodes.each do |subscriber_node|
     subscriber_name = subscriber_node['href']
-    puts subscriber_name
     subscriber_url = BASE_SUBSCRIBER_URL + subscriber_name
-    puts subscriber_url
     subscribers << Subscriber.new(name: subscriber_name, url: subscriber_url)
   end
-  # print subscriber_nodes
-  # print subscriber_nodes
+
+  end_page = end_page_node.text
+
+  puts end_page
+
+  # subscribers.each do |subscriber|
+  #   puts subscriber.name
+  # end
 end
 
   # categories.each do |c|
