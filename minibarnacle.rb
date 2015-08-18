@@ -39,7 +39,7 @@ class Bot
     end_page = end_page_node.text
 
     i=1
-    while i <= end_page.to_i
+    while i <= 5
       doc = Nokogiri::HTML(open("http://tapastic.com/swallowsofdoom/subscribers?pageNumber=" + i.to_s + "&series_id=1237"))
       subscriber_nodes = doc.css('li.ib/a.thumb-wrap')
       subscriber_nodes.each do |subscriber_node|
