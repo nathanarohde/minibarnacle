@@ -47,7 +47,6 @@ class Bot
          subscriber_url = BASE_SUBSCRIBER_URL + subscriber_name
          subscribers << Subscriber.new(name: subscriber_name, url: subscriber_url)
       end
-     sleep 0.5
      i +=1
     end
     subscribers
