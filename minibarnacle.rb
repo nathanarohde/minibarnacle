@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'highline/import'
+require 'newrelic_rpm'
 # Highline.colorize_strings
 
 BASE_URL='http://tapastic.com/swallowsofdoom/subscribers?series_id=1237'
